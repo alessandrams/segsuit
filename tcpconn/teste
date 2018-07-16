@@ -1,0 +1,20 @@
+package main
+
+import (
+  "github.com/alessandrams/go-ping"
+  "fmt"
+)
+
+func main(){
+  pinger, err := ping.NewPinger("172.16.0.1")
+  if err != nil {
+          panic(err)
+  }
+  pinger.Count = 3
+  pinger.Run() // blocks until finished
+  if pinger.Run(); pinger.PacketsRecv == 0 {
+    fmt.Printf("Host down")
+  } else {
+    fmt.Printf("Host up")
+  }
+}
