@@ -10,6 +10,9 @@ import (
   "portscan/host"
 )
 
+// Atualmente mostra todas as tentativas de login
+// Necessario aumentar o banco de dados de usuarios e senhas para ser um ataque efetivo
+
 const limit = 10
 const dir = "/home/aledemelo/Documentos/btdocs"
 var channel = make(chan int, limit)
@@ -30,7 +33,7 @@ func main(){
   passes, err := readInputFile(dir + "/passwords.txt")
   if err != nil {
     fmt.Println("[!] Cannot read password file")
-    os.Exit(1)
+    os.Exit(0)
   }
 
   var wg sync.WaitGroup

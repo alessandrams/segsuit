@@ -5,6 +5,7 @@ import (
   "golang.org/x/crypto/ssh"
   "time"
   "sync"
+  "os"
 )
 
 func SshConfig(user string, pass string, timeout time.Duration) (*ssh.ClientConfig){
@@ -30,7 +31,7 @@ func SshDial(sshconf *ssh.ClientConfig, ip string, channel chan int) (bool, *ssh
 func SshConnect(wg *sync.WaitGroup, channel chan int, user, pass, ip string) {
   defer wg.Done()
   fmt.Printf("Trying to connect with %s:%s...\n", user, pass)
-  sshconf := SshConfig(user, pass, 5)
+  sshconf := SshConfig(user, pass, 6)
 
   success, c := SshDial(sshconf, ip, channel)
   if success == false {
@@ -44,6 +45,8 @@ func SshConnect(wg *sync.WaitGroup, channel chan int, user, pass, ip string) {
   }
   if session != nil {
     fmt.Printf("[*] Got it! %s:%s\n", user, pass)
+    wg.Add(-(10))
+    os.Exit(0)
   }
   c.Close()
   session.Close()

@@ -1,0 +1,11 @@
+mysql
+info
+root
+portgres
+aledemelo
+guest
+nagios
+user
+oracle
+admin
+test
